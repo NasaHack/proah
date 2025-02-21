@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "description": "",
   "scripts": {
-    "build": "tsup",
+    "build": "tsup --watch",
     "clean": "rm -rf dist"
   },
   "main": "dist/index.js",
