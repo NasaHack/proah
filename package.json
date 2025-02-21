@@ -1,0 +1,34 @@
+{
+  "name": "proah",
+  "version": "1.0.4",
+  "description": "",
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NasaHack/proah.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NasaHack/proah/issues"
+  },
+  "homepage": "https://github.com/NasaHack/proah#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
+  }
+}
