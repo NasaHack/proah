@@ -9,6 +9,8 @@ export const configValidator = (config: ProahConfig) => {
       throw Error("Invalid baseURL for Proah Configuration!");
 
   /*Check valid Request Methods*/
+  if (!config.methods)
+    throw Error("methods array is is required! in Proah configuration.");
   if (config.methods && !Array.isArray(config.methods))
     throw Error("methods must be an Array type");
 
