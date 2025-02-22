@@ -1,1 +1,1 @@
-console.log("hello world Hello world");
+export { default } from "./lib/Proah";
