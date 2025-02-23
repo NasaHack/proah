@@ -1,6 +1,6 @@
 import { ProahConfig, RequestMethod, RequestOptions } from "../../types";
 import { validResultProps, validURL } from "../../constants/regexp";
-import { REQUEST_METODS } from "../../constants/common";
+import { EXTRA_REQUEST_METODS, REQUEST_METODS } from "../../constants/common";
 
 export const configValidator = (config: ProahConfig) => {
   if (!config) throw Error("Missing config object");
@@ -46,4 +46,14 @@ export const requestValidator = (
     throw Error(
       `Please enable the ${options.method} method in Proah config first`
     );
+};
+
+export const extraRequestValidator = (
+  options: RequestOptions,
+  config: ProahConfig
+) => {
+  if (!options?.method) throw Error("Request methods is required");
+
+  if (![...EXTRA_REQUEST_METODS, ...REQUEST_METODS].includes(options.method))
+    throw Error("Invalid Request Methods:- " + options.method);
 };
