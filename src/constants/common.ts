@@ -5,3 +5,10 @@ export const REQUEST_METODS: string[] = [
   "DELETE",
   "PATCH",
 ];
+
+export const EXTRA_REQUEST_METODS: string[] = [
+  "HEAD",
+  "OPTIONS",
+  "TRACE",
+  "CONNECT",
+];
