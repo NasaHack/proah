@@ -12,14 +12,14 @@
 npm install proah  # Or yarn add proah
 ```
 
-### Proah instance তৈরি করুনঃ
+### Proah instance তৈরিঃ
 
 ```js
 import Proah from "proah";
 
 const proah = new Proah({
-  baseURL: "https://jsonplaceholder.typicode.com",
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  baseURL: "https://jsonplaceholder.typicode.com",
   // resultProps: "myData",
   credentials: "include",
   cache: "force-cache",
@@ -40,10 +40,11 @@ const proah = new Proah({
 
 ### 1. GET
 
+Syntax: `proah.get('/path-to-endpoint', {options})`
+
 ```js
 const result = await proah.get("/posts", {
   query: { _limit: 1, _start: 9 },
-  cache: "default",
 });
 
 const { data, status, statusText } = result;
@@ -51,11 +52,10 @@ const { data, status, statusText } = result;
 
 ### 2. POST
 
+Syntax: `proah.post('/path-to-endpoint', {options})`
+
 ```js
 const result = await proah.post("/posts", {
-  headers: {
-    "Content-Type": "application/json",
-  },
   body: JSON.stringify({
     title: "foo",
     body: "bar",
@@ -68,11 +68,10 @@ const { data, status, statusText } = result;
 
 ### 3. PUT
 
+Syntax: `proah.put('/path-to-endpoint', {options})`
+
 ```js
 const result = await proah.put("/posts/1", {
-  headers: {
-    "Content-Type": "application/json",
-  },
   body: JSON.stringify({
     title: "foo",
     body: "bar",
@@ -85,14 +84,13 @@ const { data, status, statusText } = result;
 
 ### 4. PATCH
 
+Syntax: `proah.patch('/path-to-endpoint', {options})`
+
 ```js
 const result = await proah.patch("/posts/1", {
   body: JSON.stringify({
     title: "foo",
   }),
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 const { data, status, statusText } = result;
@@ -100,15 +98,42 @@ const { data, status, statusText } = result;
 
 ### 5. DELETE
 
+Syntax: `proah.delete('/path-to-endpoint', {options})`
+
 ```js
-const result = await proah.delete("/posts/1", {
-  body: JSON.stringify({
-    title: "foo",
-  }),
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const result = await proah.delete("/posts/1");
 
 const { data, status, statusText } = result;
 ```
+
+<h2 align='center'>EXTRA - Methods</h2>
+
+এই mehod এর মাধ্যমে যেকোনো HTTP Request handle করা যাবে। এবং এটা Developer কে আরও বেশি নিয়ন্ত্রণ দেয়। তবে `extra` method টা Promise Response Returns করে, সুতরাং এটি ব্যবহার করলে Promise Response টাকে নীজ দায়িত্বে handle করতে হবে।
+
+> উল্লেখ্য `extra` method এর মাধ্যমে **HEAD**, **OPTIONS**, **TRACE**, **CONNECT** এই রিকুয়েস্ট গুলোও ব্যবহার করা যাবে।
+
+Syntax: `proah.extra('/path-to-endpoint', {options})`
+
+### Example Request / Extra
+
+- **GET** request with extra method:
+
+  ```js
+  const response = await proah.extra("/posts", {
+    method: "GET",
+    query: {
+      _limit: 1,
+      _start: 2,
+    },
+  });
+
+  const { status, statusText, ok /*... and so on*/ } = response;
+
+  if (!ok) {
+    // Some Error handling Logic
+  } else {
+    // manipulate respone data using response method e.g. response.text(),response.json()
+  }
+  ```
+
+  **একই ভাবে অন্যান্য রিকুয়েস্ট মেথড গুলো প্রয়োগ করা যাবে এই `extra` মেথড এর মাধ্যমে**
