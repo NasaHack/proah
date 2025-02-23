@@ -3,9 +3,11 @@ import { validResultProps, validURL } from "../../constants/regexp";
 import { REQUEST_METODS } from "../../constants/common";
 
 export const configValidator = (config: ProahConfig) => {
-  /*Check valid baseURL*/
+  if (!config) throw Error("Missing config object");
+
   if (config.baseURL)
     if (!validURL.test(config.baseURL))
+      /*Check valid baseURL*/
       throw Error("Invalid baseURL for Proah Configuration!");
 
   /*Check valid Request Methods*/
