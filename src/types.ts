@@ -17,9 +17,11 @@ export interface ProahConfig {
 }
 
 export type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+export type ExtraRequestMethod = "HEAD" | "OPTIONS" | "TRACE" | "CONNECT";
 
 export interface RequestOptions extends RequestInit {
   query?: Record<string, string>;
+  method: RequestMethod | ExtraRequestMethod;
 }
 
 export interface ResponseData extends ResponseInit {
