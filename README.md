@@ -83,7 +83,22 @@ const result = await proah.put("/posts/1", {
 const { data, status, statusText } = result;
 ```
 
-### 3. DELETE
+### 4. PATCH
+
+```js
+const result = await proah.patch("/posts/1", {
+  body: JSON.stringify({
+    title: "foo",
+  }),
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+const { data, status, statusText } = result;
+```
+
+### 5. DELETE
 
 ```js
 const result = await proah.delete("/posts/1", {
