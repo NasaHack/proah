@@ -26,6 +26,10 @@ class Proah extends RequestConstract {
   public patch(path: Path, options: RequestOptions) {
     return this.patchRequestHandler(path, options, this.config);
   }
+
+  public extra(path: Path, options: RequestOptions): Promise<Response> {
+    return this.extraRequestHandler(path, options, this.config);
+  }
 }
 
 export default Proah;
