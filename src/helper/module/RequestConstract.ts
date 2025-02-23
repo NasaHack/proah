@@ -8,8 +8,8 @@ class RequestConstract extends UtilityConstract {
     options: RequestOptions,
     config: ProahConfig
   ): Promise<ResponseData> {
-    const url = this.genURL(path, config, options);
     const reqOptions = this.genReqOptions("GET", config, options);
+    const url = this.genURL(path, config, reqOptions);
     requestValidator(reqOptions, config, "GET");
     return await this.prettyResposne(await fetch(url, reqOptions), config);
   }
@@ -19,8 +19,8 @@ class RequestConstract extends UtilityConstract {
     options: RequestOptions,
     config: ProahConfig
   ): Promise<ResponseData> {
-    const url = this.genURL(path, config, options);
     const reqOptions = this.genReqOptions("POST", config, options);
+    const url = this.genURL(path, config, reqOptions);
     requestValidator(reqOptions, config, "POST");
     return await this.prettyResposne(await fetch(url, reqOptions), config);
   }
@@ -30,8 +30,8 @@ class RequestConstract extends UtilityConstract {
     options: RequestOptions,
     config: ProahConfig
   ): Promise<ResponseData> {
-    const url = this.genURL(path, config, options);
     const reqOptions = this.genReqOptions("PUT", config, options);
+    const url = this.genURL(path, config, reqOptions);
     requestValidator(reqOptions, config, "PUT");
     return await this.prettyResposne(await fetch(url, reqOptions), config);
   }
@@ -41,8 +41,8 @@ class RequestConstract extends UtilityConstract {
     options: RequestOptions,
     config: ProahConfig
   ): Promise<ResponseData> {
-    const url = this.genURL(path, config, options);
     const reqOptions = this.genReqOptions("DELETE", config, options);
+    const url = this.genURL(path, config, reqOptions);
     requestValidator(reqOptions, config, "DELETE");
     return await this.prettyResposne(await fetch(url, reqOptions), config);
   }
@@ -52,8 +52,8 @@ class RequestConstract extends UtilityConstract {
     options: RequestOptions,
     config: ProahConfig
   ): Promise<ResponseData> {
-    const url = this.genURL(path, config, options);
     const reqOptions = this.genReqOptions("PATCH", config, options);
+    const url = this.genURL(path, config, reqOptions);
     requestValidator(reqOptions, config, "PATCH");
     return await this.prettyResposne(await fetch(url, reqOptions), config);
   }
