@@ -16,11 +16,14 @@ class UtilityConstract {
 
     if (options.query && typeof options.query === "object" && url) {
       Object.entries(options.query).forEach(([key, value]) => {
-        url.searchParams.append(key, value);
+        url?.searchParams.append(key, value);
       });
     }
 
-    return url ? url.href : path;
+    if (!url && !(path.startsWith("http") || path.startsWith("https")))
+      throw Error(`Invalid URL '${path}' for ${options.method} request`);
+
+    return url ? url?.href : path;
   }
 
   protected genReqOptions(
@@ -46,6 +49,20 @@ class UtilityConstract {
       };
     }
 
+    if (config.cache) {
+      option = {
+        ...option,
+        cache: config.cache,
+      };
+    }
+
+    if (config.mode) {
+      option = {
+        ...option,
+        mode: config.mode,
+      };
+    }
+
     if (!options.headers && options.body?.constructor.name !== "FormData") {
       option = {
         ...option,
@@ -62,7 +79,6 @@ class UtilityConstract {
       case "DELETE":
         delete option.body;
     }
-    delete option.query;
 
     return option;
   }
@@ -90,13 +106,17 @@ class UtilityConstract {
   }
 
   protected async prettyResposne(response: Response, config: ProahConfig) {
-    if (!response.ok) return { data: null, status: response.status };
+    if (!response.ok)
+      return {
+        data: null,
+        [config.resultProps ? config.resultProps : "data"]: null,
+        status: response.status,
+      };
+
     let data = await this.parseData(response);
     return {
       status: response.status,
-      headers: response.headers,
       statusText: response.statusText,
-      data: data,
       [config.resultProps ? config.resultProps : "data"]: data,
     };
   }
