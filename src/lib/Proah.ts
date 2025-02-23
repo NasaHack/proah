@@ -1,35 +1,30 @@
-import { RequestConstract, configValidator } from "../helper";
-import { Path, ProahConfig, RequestOptions } from "../types";
+import ReqConstract from "./helper/ReqConstrat";
+import { Config, Path, ReqOptions } from "./types";
 
-class Proah extends RequestConstract {
-  constructor(private config: ProahConfig) {
+export default class Proah extends ReqConstract {
+  constructor(protected config?: Config) {
     super();
-    configValidator(config);
   }
 
-  public async get(path: Path, options: RequestOptions) {
-    return this.getRequestHandler(path, options, this.config);
+  /*serve request methods*/
+
+  /*GET*/
+  public get(path: Path, reqOtions?: ReqOptions) {
+    return this.handleRequest(path, reqOtions, this.config);
   }
 
-  public post(path: Path, options: RequestOptions) {
-    return this.postRequestHandler(path, options, this.config);
+  /*POST*/
+  public post(path: Path, reqOtions?: ReqOptions) {
+    return this.handleRequest(path, reqOtions, this.config);
   }
 
-  public put(path: Path, options: RequestOptions) {
-    return this.putRequestHandler(path, options, this.config);
+  /*PUT*/
+  public put(path: Path, reqOtions?: ReqOptions) {
+    return this.handleRequest(path, reqOtions, this.config);
   }
 
-  public delete(path: Path, options: RequestOptions) {
-    return this.deleteRequestHandler(path, options, this.config);
-  }
-
-  public patch(path: Path, options: RequestOptions) {
-    return this.patchRequestHandler(path, options, this.config);
-  }
-
-  public extra(path: Path, options: RequestOptions): Promise<Response> {
-    return this.extraRequestHandler(path, options, this.config);
+  /*PATCH*/
+  public patch(path: Path, reqOtions?: ReqOptions) {
+    return this.handleRequest(path, reqOtions, this.config);
   }
 }
-
-export default Proah;
