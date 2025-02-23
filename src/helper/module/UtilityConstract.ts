@@ -35,35 +35,35 @@ class UtilityConstract {
       method,
     };
 
-    if (config.credentials) {
+    if (config?.credentials) {
       option = {
         ...option,
         credentials: config.credentials,
       };
     }
 
-    if (options.credentials) {
+    if (options?.credentials) {
       option = {
         ...option,
         credentials: options.credentials,
       };
     }
 
-    if (config.cache) {
+    if (config?.cache) {
       option = {
         ...option,
         cache: config.cache,
       };
     }
 
-    if (config.mode) {
+    if (config?.mode) {
       option = {
         ...option,
         mode: config.mode,
       };
     }
 
-    if (!options.headers && options.body?.constructor.name !== "FormData") {
+    if (!options?.headers && options?.body?.constructor.name !== "FormData") {
       option = {
         ...option,
         headers: {
