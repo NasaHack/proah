@@ -1,19 +1,24 @@
+import { defaultTimeout } from "../constants/common";
 import { Config, ReqOptions, ResOptions } from "../types";
 
 export default class ReqHandler {
-  protected abortController = new AbortController();
-
-  protected handleTimeOut = (reqOptions: ReqOptions & Config) => {
+  protected handleTimeOut = (
+    reqOptions: ReqOptions & Config
+  ): AbortController => {
+    let abortController = new AbortController();
     let timer = setTimeout(() => {
-      this.abortController.abort();
+      abortController.abort();
       clearTimeout(timer);
-    }, reqOptions?.timeout || 3000);
+    }, reqOptions?.timeout || defaultTimeout);
+
+    return abortController;
   };
 
   protected normalizedReqOptions = (reqOptions: ReqOptions & Config) => {
-    const options = { ...reqOptions, signal: this.abortController.signal };
-
-    this.handleTimeOut(reqOptions);
+    const options = {
+      ...reqOptions,
+      signal: this.handleTimeOut(reqOptions).signal,
+    };
 
     // Delete unnecessary props
     if (options.baseURL) delete options.baseURL;
