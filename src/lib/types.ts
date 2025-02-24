@@ -28,7 +28,7 @@ export interface Config {
   mode?: Mode;
   cache?: Cache;
   methods?: Method[];
-  resultPros?: string;
+  resultProps?: string;
   timeout?: number;
 }
 
@@ -36,7 +36,7 @@ export interface ReqOptions extends RequestInit {
   query?: object;
   method?: Method;
   timeout?: number;
-  resultPros?: string;
+  resultProps?: string;
 }
 
 export interface ResOptions extends ResponseInit {

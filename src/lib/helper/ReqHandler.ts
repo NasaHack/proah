@@ -25,7 +25,7 @@ export default class ReqHandler {
     if (options.methods) delete options.methods;
     if (options.timeout) delete options.timeout;
     if (options.query) delete options.query;
-    if (options.resultPros) delete options.resultPros;
+    if (options.resultProps) delete options.resultProps;
 
     return options;
   };
@@ -58,7 +58,7 @@ export default class ReqHandler {
       status: response.status,
       statusText: response.statusText,
       url: response.url,
-      [reqOptions.resultPros ? reqOptions.resultPros : "data"]: response.ok
+      [reqOptions.resultProps ? reqOptions.resultProps : "data"]: response.ok
         ? await this.parseData(response)
         : null,
     };
