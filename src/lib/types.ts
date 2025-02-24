@@ -10,7 +10,7 @@ type Cache =
   | "only-if-cached"
   | "no-store";
 
-export type Methods =
+export type Method =
   | "GET"
   | "POST"
   | "PUT"
@@ -19,6 +19,7 @@ export type Methods =
   | "HEAD"
   | "OPTIONS"
   | "TRACE"
+  | "TRACK"
   | "CONNECT";
 
 export interface Config {
@@ -26,10 +27,17 @@ export interface Config {
   credentials?: Credentials;
   mode?: Mode;
   cache?: Cache;
-  methods?: Methods[];
+  methods?: Method[];
+  resultPros?: string;
   timeout?: number;
 }
 
 export interface ReqOptions extends RequestInit {
   query?: object;
+  method?: Method;
+}
+
+export interface ResOptions extends ResponseInit {
+  url: string;
+  data?: any;
 }
