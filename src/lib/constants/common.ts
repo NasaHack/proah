@@ -42,3 +42,5 @@ export const confgProps: string[] = [
   "timeout",
   "resultPros",
 ];
+
+export const defaultTimeout: number = 5000;
