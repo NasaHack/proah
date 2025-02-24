@@ -36,6 +36,7 @@ export interface ReqOptions extends RequestInit {
   query?: object;
   method?: Method;
   timeout?: number;
+  resultPros?: string;
 }
 
 export interface ResOptions extends ResponseInit {
