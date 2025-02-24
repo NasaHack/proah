@@ -1,13 +1,27 @@
 import { Config, ReqOptions, ResOptions } from "../types";
 
 export default class ReqHandler {
+  protected abortController = new AbortController();
+
+  protected handleTimeOut = (reqOptions: ReqOptions & Config) => {
+    let timer = setTimeout(() => {
+      this.abortController.abort();
+      clearTimeout(timer);
+    }, reqOptions?.timeout || 3000);
+  };
+
   protected normalizedReqOptions = (reqOptions: ReqOptions & Config) => {
-    const options = { ...reqOptions };
+    const options = { ...reqOptions, signal: this.abortController.signal };
+
+    this.handleTimeOut(reqOptions);
+
+    // Delete unnecessary props
     if (options.baseURL) delete options.baseURL;
     if (options.methods) delete options.methods;
     if (options.timeout) delete options.timeout;
     if (options.query) delete options.query;
     if (options.resultPros) delete options.resultPros;
+
     return options;
   };
 
@@ -26,8 +40,7 @@ export default class ReqHandler {
     if (contentType?.startsWith("application/json"))
       return await response.json();
 
-    if (contentType?.startsWith("application/html"))
-      return await response.text();
+    if (contentType?.startsWith("text/html")) return await response.text();
 
     if (contentType?.startsWith("text/")) return await response.text();
   };
