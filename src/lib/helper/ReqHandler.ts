@@ -91,7 +91,7 @@ export default class ReqHandler {
   protected EXTRA_handler(
     url: string,
     reqOptions: ReqOptions & Config
-  ): Promise<Response> {
+  ): Promise<Response & ResOptions> {
     const options = this.normalizedReqOptions(reqOptions);
     return fetch(url, options);
   }
