@@ -63,7 +63,7 @@ export const requestProviderValidator = (
     (options?.method && !options.methods?.includes(options.method))
   )
     throw Error(
-      `Please enable '${method || options?.method}' method in Proah config.`
+      `Please enable '${method && options?.method}' method in Proah config.`
     );
 
   /*Common Request Validator*/
