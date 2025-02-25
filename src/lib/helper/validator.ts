@@ -29,10 +29,17 @@ export const configValidator = (config?: Config) => {
       `Invalid credentials property ${config.credentials} for Proah Config`
     );
 
-  config?.methods?.forEach((method) => {
-    if (!methods.includes(method))
-      throw Error(`Invalid method '${method}' property for Proah Config`);
-  });
+  if (config?.methods) {
+    if (!Array.isArray(config?.methods))
+      throw Error(
+        `methods must contain in Array e.g. methods:["GET", "POST", ...] |> Proah Config`
+      );
+
+    config?.methods?.forEach((method) => {
+      if (!methods.includes(method))
+        throw Error(`Invalid method '${method}' property for Proah Config`);
+    });
+  }
 
   if (config.baseURL && !validURL.test(config.baseURL))
     throw Error(`Invalid baseURL for Proah Config`);
