@@ -37,6 +37,7 @@ export interface ReqOptions extends RequestInit {
   method?: Method;
   timeout?: number;
   resultProps?: string;
+  baseURL?: string;
 }
 
 export interface ResOptions extends ResponseInit {
