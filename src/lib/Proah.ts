@@ -1,5 +1,5 @@
 import ReqConstract from "./helper/ReqConstrat";
-import { Config, Path, ReqOptions } from "./types";
+import { Config, Path, ReqOptions, ResOptions } from "./types";
 import { configValidator } from "./helper/validator";
 
 export default class Proah extends ReqConstract {
@@ -11,27 +11,27 @@ export default class Proah extends ReqConstract {
   /*serve request methods*/
 
   /*GET*/
-  public get(path: Path, reqOtions?: ReqOptions) {
+  public get(path: Path, reqOtions?: ReqOptions): Promise<ResOptions> {
     return this.requestProvider(path, "GET", reqOtions, this.config);
   }
 
   /*POST*/
-  public post(path: Path, reqOtions?: ReqOptions) {
+  public post(path: Path, reqOtions?: ReqOptions): Promise<ResOptions> {
     return this.requestProvider(path, "POST", reqOtions, this.config);
   }
 
   /*PUT*/
-  public put(path: Path, reqOtions?: ReqOptions) {
+  public put(path: Path, reqOtions?: ReqOptions): Promise<ResOptions> {
     return this.requestProvider(path, "PUT", reqOtions, this.config);
   }
 
   /*PATCH*/
-  public patch(path: Path, reqOtions?: ReqOptions) {
+  public patch(path: Path, reqOtions?: ReqOptions): Promise<ResOptions> {
     return this.requestProvider(path, "PATCH", reqOtions, this.config);
   }
 
   /*DELETE*/
-  public delete(path: Path, reqOtions?: ReqOptions) {
+  public delete(path: Path, reqOtions?: ReqOptions): Promise<ResOptions> {
     return this.requestProvider(path, "DELETE", reqOtions, this.config);
   }
 

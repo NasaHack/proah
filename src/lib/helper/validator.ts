@@ -42,39 +42,36 @@ export const requestProviderValidator = (
   method?: Method,
   options?: ReqOptions & Config
 ) => {
-  /*Common Request Validator*/
-  if (method && method !== options?.method)
-    throw Error(
-      `You can not override the '${method}' request to '${
-        options?.method
-      } request for proah.${method.toLowerCase()}() method`
-    );
-
-  /*Extra Request validator*/
-  if (!method) {
-    options?.methods?.forEach(() => {
-      if (options.method && !methods.includes(options.method))
-        throw Error(
-          `Invalid method '${options.method}' property for Extra Request`
-        );
-    });
-
-    options?.methods?.forEach(() => {
-      if (options.method && !options?.methods?.includes(options.method))
-        throw Error(
-          `Please include '${options.method}' method in Proah Config`
-        );
-    });
-
-    if (!options?.method)
-      throw Error(`Request 'method' missing for proah.extra() method`);
-  }
-
+  /* Vlidate bodyless methods */
   if (
     options?.body &&
     options?.method &&
     bodyLessMethod.includes(options?.method)
   ) {
-    throw Error(`HTTP request '${options.method}' dont have 'body' property`);
+    throw Error(`HTTP request '${options.method}' do not have 'body' property`);
+  }
+
+  if (
+    (method && !options?.methods) ||
+    (options?.method && !options.methods?.includes(options.method))
+  )
+    throw Error(
+      `Please enable '${method || options?.method}' method in Proah config.`
+    );
+
+  /*Common Request Validator*/
+  if (method) {
+    if (method !== options?.method)
+      throw Error(
+        `You can not override the '${method}' request to '${
+          options?.method
+        } request for proah.${method.toLowerCase()}() method`
+      );
+  }
+
+  /*Extra Request validator*/
+  if (!method) {
+    if (!options?.method)
+      throw Error(`Request 'method' missing for proah.extra() method`);
   }
 };

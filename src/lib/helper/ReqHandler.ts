@@ -66,50 +66,32 @@ export default class ReqHandler {
 
   /*Request Handler*/
 
-  protected async GET_handler(
-    url: string,
-    reqOptions: ReqOptions & Config
-  ): Promise<ResOptions> {
+  protected async GET_handler(url: string, reqOptions: ReqOptions & Config) {
     const options = this.normalizedReqOptions(reqOptions);
     return await this.prettyResponse(await fetch(url, options), reqOptions);
   }
 
-  protected async POST_handler(
-    url: string,
-    reqOptions: ReqOptions & Config
-  ): Promise<ResOptions> {
+  protected async POST_handler(url: string, reqOptions: ReqOptions & Config) {
     const options = this.normalizedReqOptions(reqOptions);
     return await this.prettyResponse(await fetch(url, options), reqOptions);
   }
 
-  protected async PUT_handler(
-    url: string,
-    reqOptions: ReqOptions & Config
-  ): Promise<ResOptions> {
+  protected async PUT_handler(url: string, reqOptions: ReqOptions & Config) {
     const options = this.normalizedReqOptions(reqOptions);
     return await this.prettyResponse(await fetch(url, options), reqOptions);
   }
 
-  protected async PATCH_handler(
-    url: string,
-    reqOptions: ReqOptions & Config
-  ): Promise<ResOptions> {
+  protected async PATCH_handler(url: string, reqOptions: ReqOptions & Config) {
     const options = this.normalizedReqOptions(reqOptions);
     return await this.prettyResponse(await fetch(url, options), reqOptions);
   }
 
-  protected async DELETE_handler(
-    url: string,
-    reqOptions: ReqOptions & Config
-  ): Promise<ResOptions> {
+  protected async DELETE_handler(url: string, reqOptions: ReqOptions & Config) {
     const options = this.normalizedReqOptions(reqOptions);
     return await this.prettyResponse(await fetch(url, options), reqOptions);
   }
 
-  protected EXTRA_handler(
-    url: string,
-    reqOptions: ReqOptions & Config
-  ): Promise<Response & ResOptions> {
+  protected EXTRA_handler(url: string, reqOptions: ReqOptions & Config) {
     const options = this.normalizedReqOptions(reqOptions);
     return fetch(url, options);
   }
