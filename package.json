@@ -1,6 +1,6 @@
 {
   "name": "proah",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "HTTP client for the browser and node.js",
   "scripts": {
     "build": "tsup",
