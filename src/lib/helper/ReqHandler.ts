@@ -60,7 +60,7 @@ export default class ReqHandler {
       url: response.url,
       [reqOptions.resultProps ? reqOptions.resultProps : "data"]: response.ok
         ? await this.parseData(response)
-        : null,
+        : await this.parseData(response),
     };
   };
 
