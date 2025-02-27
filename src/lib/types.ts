@@ -43,4 +43,5 @@ export interface ReqOptions extends RequestInit {
 export interface ResOptions extends ResponseInit {
   url: string;
   data?: any;
+  error?: any;
 }
