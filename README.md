@@ -4,6 +4,18 @@
 
 এটি একটি ছোট্টো লাইব্রেরি। যেটা HTTP Request পাঠানো এবং Resposne প্রক্রিয়াকরণ কে কিছুটা সহজ করে দেয়। যেটা Proah তার ব্যক্তিগত কাজের জন্য বানিয়েছে। তবে এটা উন্মুক্ত চাইলে যে কেউ ব্যবহার করতে পারে।
 
+## 🚀 Proah - Lightweight & Customizable HTTP Client
+
+| Feature                       | Description                                                |
+| ----------------------------- | ---------------------------------------------------------- |
+| 🌟 **Lightweight**            | খুবই হলকা একটি library                                     |
+| ⚡ **Fast & Simple**          | সহজেই ব্যবহার যোগ্য                                        |
+| 🔄 **Auto Parsing**           | JSON, text, blobs, স্বয়ংক্রিয় ভাবে পার্স করা               |
+| 🎯 **Customizable**           | ইচ্ছে মতো পরিবর্তন ও সংযোজন যোগ্য                          |
+| 🔥 **Modern Fetch-Based**     | এটি আধুনিক `fetch` API এর উপর ভিত্তিতে তৈরি                |
+| 🛠 **Supports Extra Requests** | `proah.extra()` ইন্সট্যান্স মেথড পরিপুর্ণ নিয়ন্ত্রণের জন্য |
+| ⏳ **Timeout Support**        | global অথবা নির্দিষ্ট ইন্সট্যান্স মেথড এ timeout যুক্ত করা |
+
 ## যেভাবে ব্যবহার করা যাবে,
 
 ### Installation / ইন্সটেলেশন:
@@ -26,7 +38,7 @@ const Proah = require("proah");
 
 ```js
 const proah = new Proah({
-  baseURL: "https://jsonplaceholder.typicode.com",
+  baseURL: "https://proah-post.vercel.app",
   timeout: 12000,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   mode: "cors",
@@ -40,8 +52,8 @@ const proah = new Proah({
 
 | Property    | Description                                                                                                                         | Default | Optional |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------- | -------- |
-| methods     | **methods** Array-র মধ্যে যুক্ত করুন, যেসব HTTP Request method ব্যবহার করবেন                                                        |         | No       |
-| baseURL     | API রিকুয়েস্ট এর জন্য baseURL                                                                                                       |         | YES      |
+| methods     | **methods** Array-র মধ্যে যুক্ত করুন, যেসব HTTP Request method ব্যবহার করবেন                                                        | []      | No       |
+| baseURL     | API রিকুয়েস্ট এর জন্য baseURL                                                                                                       | nothing | YES      |
 | resultProps | এখানে ডিফাইন্ড করা যাবে, চূড়ান্ত Response Data যেখানে প্রাপ্ত হবে                                                                   | data    | YES      |
 | credentials | এখানে [credentials](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) value যুক্ত করা যাবে HTTP Request এর জন্য | omit    | YES      |
 | cache       | এখানে [cache](https://developer.mozilla.org/en-US/docs/Web/API/Request/cache) value যুক্ত করা যাবে HTTP Request এর জন্য             | default | YES      |
@@ -51,68 +63,159 @@ const proah = new Proah({
 ### Proah instance methods (6)
 
 1. **proah.get()**  
-   **Syntax**: proah.get('/path-to-endpoint', {options})
-
+   **Syntax**: proah.get('/path-to-endpoint', { Request options })
 2. **proah.post()**  
-   **Syntax:** proah.post('/path-to-endpoint', {options})
+   **Syntax:** proah.post('/path-to-endpoint', { Request options })
 3. **proah.put()**  
-   **Syntax:** proah.put('/path-to-endpoint', {options})
+   **Syntax:** proah.put('/path-to-endpoint', { Request options })
 4. **proah.patch()**  
-   **Syntax:** proah.patch('/path-to-endpoint', {options})
+   **Syntax:** proah.patch('/path-to-endpoint', { Request options })
 5. **proah.delete()**  
-   **Syntax:** proah.delete('/path-to-endpoint', {options})
+   **Syntax:** proah.delete('/path-to-endpoint', { Request options })
 6. **proah.extra()**  
-   **Syntax:** proah.extra('/path-to-endpoint', {options})
+    **Syntax:** proah.extra('/path-to-endpoint', { Request options })
 
    ***
 
-   ### options object properties:
+   ### Request options properties:
 
-   | Property    | Default                                                 | Optional | Replaceable |
-   | ----------- | ------------------------------------------------------- | :------: | :---------: |
-   | body        | nothing                                                 |   YES    |     YES     |
-   | query       | nothing                                                 |   YES    |     YES     |
-   | headers     | {'Content-Type':'application/json', ...default headers} |   YES    |     YES     |
-   | timeout     | from Proah config if available, otherwise default       |   YES    |     YES     |
-   | baseURL     | from Proah config if available, otherwise nothing       |   YES    |     YES     |
-   | credentials | from Proah config if available, otherwise default       |   YES    |     YES     |
-   | mode        | from Proah config if available, otherwise default       |   YES    |     YES     |
-   | cache       | from Proah config if available, otherwise default       |   YES    |     YES     |
-   | resultProps | from Proah config if available, otherwise default       |   YES    |     YES     |
-   | method      | from Proah library                                      |   YES    |     NO      |
+   | Property    | Default                                             | Optional | Replaceable |
+   | ----------- | --------------------------------------------------- | :------: | :---------: |
+   | body        | কিছুই না                                            |  হ্যাঁ   |    হ্যাঁ    |
+   | query       | কিছুই না                                            |  হ্যাঁ   |    হ্যাঁ    |
+   | headers     | {'Content-Type':'application/json', ...}            |  হ্যাঁ   |    হ্যাঁ    |
+   | timeout     | Proah কনফিগারেশন থেকে নেওয়া হবে, অন্যথায় ডিফল্ট   |  হ্যাঁ   |    হ্যাঁ    |
+   | baseURL     | Proah কনফিগারেশন থেকে নেওয়া হবে, অন্যথায় কিছুই না |  হ্যাঁ   |    হ্যাঁ    |
+   | credentials | Proah কনফিগারেশন থেকে নেওয়া হবে, অন্যথায় ডিফল্ট   |  হ্যাঁ   |    হ্যাঁ    |
+   | mode        | Proah কনফিগারেশন থেকে নেওয়া হবে, অন্যথায় ডিফল্ট   |  হ্যাঁ   |    হ্যাঁ    |
+   | cache       | Proah কনফিগারেশন থেকে নেওয়া হবে, অন্যথায় ডিফল্ট   |  হ্যাঁ   |    হ্যাঁ    |
+   | resultProps | Proah কনফিগারেশন থেকে নেওয়া হবে, অন্যথায় ডিফল্ট   |  হ্যাঁ   |    হ্যাঁ    |
+   | method      | Proah লাইব্রেরির থেকে নেওয়া হবে                    |  হ্যাঁ   |     না      |
 
    and more....
 
 ## Example Request
 
-### 1. GET
+**Create a Basic Instance**
 
 ```js
-const result = await proah.get("/posts", {
-  query: { _limit: 1, _start: 9 },
+const proah = new Proah({
+  baseURL: "https://proah-post.vercel.app",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  timeout: 12000,
+});
+```
+
+### 1. GET
+
+**Example Success Response handling:**
+
+```js
+const { data, error, status, statusText } = await proah.get("/api/posts", {
+  timeout: 8000,
 });
 
-const { data, status, statusText } = result;
+if (data) {
+  console.log(data);
+} else {
+  console.log(error);
+}
 ```
+
+```js
+// Console Output
+{
+  success: true,
+  status: 200,
+  message: 'All Posts here',
+  data: [
+    {
+      userId: 1,
+      id: 1,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit\n' +
+        'suscipit recusandae consequuntur expedita et cum\n' +
+        'reprehenderit molestiae ut ut quas totam\n' +
+        'nostrum rerum est autem sunt rem eveniet architecto'
+    },
+    {
+      userId: 1,
+      id: 2,
+      title: 'qui est esse',
+      body: 'est rerum tempore vitae\n' +
+        'sequi sint nihil reprehenderit dolor beatae ea dolores neque\n' +
+        'fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\n' +
+        'qui aperiam non debitis possimus qui neque nisi nulla'
+    },
+    ...more
+  ]
+}
+```
+
+**Example Failed Response handling:**
+
+```js
+const { data, error, status, statusText } = await proah.get("/api/postss"); // Invalid endpoint
+
+if (data) {
+  console.log(data);
+} else {
+  console.log(error); // Error output in the console
+}
+```
+
+```js
+// Console Output
+{
+  success: false,
+  status: 404,
+  message: 'Requested data will not be found'
+}
+```
+
+---
 
 ### 2. POST
 
 ```js
-const result = await proah.post("/posts", {
-  body: JSON.stringify({
-    title: "foo",
-    body: "bar",
-    userId: 1,
-  }),
+const post = {
+  title: "তবে গল্পটা যদি আরও কিছুটা দুরে যেতো",
+  body: "মনে আছে? একদিন আমরা আঁকাশের তারা গুনছিলাম। তুমি বোকার মত বলেছিলে হ্যাঁ। আমি তোমাকে একটা খোঁচা দিলাম। অমনি তোমার হুঁশ ফিরলো আর বললে, ধুর দিনের বেলা কে তাঁরা গুনলো?",
+  userId: 1,
+};
+
+const { data, error, status, statusText } = await proah.post("/api/posts", {
+  body: JSON.stringify(post),
 });
 
-const { data, status, statusText } = result;
+if (data) {
+  console.log(data);
+} else {
+  console.log(error); // No Error
+}
 ```
+
+```js
+// Console Output
+{
+  success: true,
+  status: 201,
+  message: 'Post Successfully created',
+  data: {
+    title: 'তবে গল্পটা যদি আরও কিছুটা দুরে যেতো',
+    body: 'মনে আছে? একদিন আমরা আঁকাশের তারা গুনছিলাম। তুমি বোকার মত বলেছিলে হ্যাঁ। আমি তোমাকে একটা খোঁচা দিলাম। অমনি তোমার হুঁশ ফিরলো আর বললে, ধুর দিনের বেলা কে তাঁরা গুনলো?',
+    userId: 1,
+    id: 101
+  }
+}
+```
+
+---
 
 ### 3. PUT
 
 ```js
-const result = await proah.put("/posts/1", {
+const { data, error, status, statusText } = await proah.put("/api/posts/1", {
   body: JSON.stringify({
     title: "foo",
     body: "bar",
@@ -120,27 +223,76 @@ const result = await proah.put("/posts/1", {
   }),
 });
 
-const { data, status, statusText } = result;
+if (data) {
+  console.log(data);
+} else {
+  console.log(error); // No Error
+}
 ```
+
+```js
+// Console Output
+{
+  success: true,
+  status: 202,
+  message: 'Post updated successfully',
+  data: { title: 'foo', body: 'bar', userId: 1, id: 1 }
+}
+```
+
+---
 
 ### 4. PATCH
 
 ```js
-const result = await proah.patch("/posts/1", {
+const { data, error, status, statusText } = await proah.patch("/api/posts/1", {
   body: JSON.stringify({
-    title: "foo",
+    title: "তুমি আমায় ডেকেছিলে এক মেঘে ঢাকা দিনে।",
   }),
 });
 
-const { data, status, statusText } = result;
+if (data) {
+  console.log(data);
+} else {
+  console.log(error); // No Error
+}
 ```
+
+```js
+// Console Output
+{
+  success: true,
+  status: 202,
+  message: 'Post partially updated!',
+  data: {
+    userId: 1,
+    id: 1,
+    title: 'তুমি আমায় ডেকেছিলে এক মেঘে ঢাকা দিনে।',
+    body: 'quia et suscipit\n' +
+      'suscipit recusandae consequuntur expedita et cum\n' +
+      'reprehenderit molestiae ut ut quas totam\n' +
+      'nostrum rerum est autem sunt rem eveniet architecto'
+  }
+}
+```
+
+---
 
 ### 5. DELETE
 
 ```js
-const result = await proah.delete("/posts/1");
+const { data, error, status, statusText } = await proah.delete("/api/posts/5");
 
-const { data, status, statusText } = result;
+if (data) {
+  console.log(data);
+} else {
+  console.log(error); // No Error
+}
+```
+
+```js
+// Console Output
+{ success: true, status: 200, message: 'Post deleted id: 5' }
 ```
 
 <h2 align='center'>EXTRA - Methods</h2>
@@ -246,38 +398,43 @@ const response = await proah.extra("/posts", {
 
 ```js
 const proah = new Proah({
-  baseURL: "https://jsonplaceholder.typicode.com",
+  baseURL: "https://proah-post.vercel.app",
   methods: ["GET"],
-  resultProps: "myData",
+  resultProps: "myData", // ⚠️ এটা না করাই ভালো!
 });
 ```
 
 ```js
-const result = await proah.get("/posts", {
+const { myData, error } = await proah.get("/api/posts", {
   query: {
     _limit: 1,
   },
 });
 
-console.log(result);
-/*
-  {
-    status: 200,
-    statusText: 'OK',
-    url: 'https://jsonplaceholder.typicode.com/posts?_limit=1',
-    myData: [
-      {
-        userId: 1,
-        id: 1,
-        title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-        body: 'quia et suscipit\n' +
-          'suscipit recusandae consequuntur expedita et cum\n' +
-          'reprehenderit molestiae ut ut quas totam\n' +
-          'nostrum rerum est autem sunt rem eveniet architecto'
-      }
-    ]
-  }
-*/
+if (myData) {
+  console.log(myData);
+} else {
+  console.log(error);
+}
+```
+
+```js
+{
+  success: true,
+  status: 200,
+  message: 'All Posts here',
+  data: [
+    {
+      userId: 1,
+      id: 1,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit\n' +
+        'suscipit recusandae consequuntur expedita et cum\n' +
+        'reprehenderit molestiae ut ut quas totam\n' +
+        'nostrum rerum est autem sunt rem eveniet architecto'
+    }
+  ]
+}
 ```
 
 ---
@@ -308,6 +465,54 @@ console.log(result);
 ```
 
 ![](https://i.ibb.co.com/67VY5j9S/4.png)
+
+## সাধারণ HTML এ যেভাবে ব্যবহার করার যাবে
+
+**app.js**
+
+```js
+// import proah library
+import Proah from "https://www.unpkg.com/proah@1.1.11/dist/index.mjs";
+
+// create proah instance
+const proah = new Proah({
+  methods: ["GET"],
+  baseURL: "https://proah-post.vercel.app/",
+  timeout: 10000,
+});
+
+// use intance method
+proah
+  .get("/api/posts", {
+    query: {
+      _limit: 3,
+      _start: 10,
+    },
+  })
+  .then(console.log)
+  .catch(console.log);
+```
+
+**index.html**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- linkup app.js in html -->
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
+```
+
+**Inside browser console**
+
+![](https://i.ibb.co.com/k6VLvG8P/5.png)
 
 ### Supported HTTP Methods for Proah
 
