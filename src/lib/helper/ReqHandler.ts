@@ -33,19 +33,40 @@ export default class ReqHandler {
   protected parseData = async (response: Response) => {
     const contentType = response.headers.get("Content-Type");
 
-    if (contentType?.startsWith("image/")) return await response.blob();
+    if (!contentType)
+      return `Unable to detect Content-Type. \n Consider using 'proah.extra()' to handle this manually.`;
 
-    if (contentType?.startsWith("audio/")) return await response.blob();
+    if (contentType.startsWith("application/json")) {
+      try {
+        return await response.json();
+      } catch (error: any) {
+        return `Failed to parse JSON! The requested source might be sending invalid JSON data.\n${
+          error?.message || error
+        }`;
+      }
+    }
 
-    if (contentType?.startsWith("video/")) return await response.blob();
+    if (contentType.startsWith("text/")) {
+      try {
+        return await response.text();
+      } catch (error: any) {
+        return `Failed to parsing TEXT ! Maybe requested sources sending invalid text data\n${
+          error?.message || error
+        }`;
+      }
+    }
 
-    if (contentType?.startsWith("application/pdf"))
+    if (
+      contentType.startsWith("image/") ||
+      contentType.startsWith("audio/") ||
+      contentType.startsWith("video/") ||
+      contentType === "application/pdf" ||
+      contentType === "application/octet-stream"
+    ) {
       return await response.blob();
+    }
 
-    if (contentType?.startsWith("application/json"))
-      return await response.json();
-
-    if (contentType?.startsWith("text/")) return await response.text();
+    return `Unknown Content-Type: ${contentType}. Unable to parse response.\nConsider using 'proah.extra()' to handle ${contentType}.`;
   };
 
   protected prettyResponse = async (
