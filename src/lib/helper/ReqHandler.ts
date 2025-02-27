@@ -45,8 +45,6 @@ export default class ReqHandler {
     if (contentType?.startsWith("application/json"))
       return await response.json();
 
-    if (contentType?.startsWith("text/html")) return await response.text();
-
     if (contentType?.startsWith("text/")) return await response.text();
   };
 
@@ -54,13 +52,15 @@ export default class ReqHandler {
     response: Response,
     reqOptions: ReqOptions & Config
   ) => {
+    const result = await this.parseData(response);
     return {
       status: response.status,
       statusText: response.statusText,
       url: response.url,
       [reqOptions.resultProps ? reqOptions.resultProps : "data"]: response.ok
-        ? await this.parseData(response)
-        : await this.parseData(response),
+        ? result
+        : null,
+      error: !response.ok ? result : null,
     };
   };
 
