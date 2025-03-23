@@ -21,6 +21,7 @@ export default class ReqConstract extends ReqHandler {
       reqOtions?.body?.constructor.name !== "FormData"
     ) {
       options.headers = {
+        ...options.headers,
         "Content-Type": "application/json",
       };
     }
