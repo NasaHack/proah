@@ -17,10 +17,7 @@ export type Method =
   | "DELETE"
   | "PATCH"
   | "HEAD"
-  | "OPTIONS"
-  | "TRACE"
-  | "TRACK"
-  | "CONNECT";
+  | "OPTIONS";
 
 export interface Config {
   baseURL?: string;
@@ -30,8 +27,9 @@ export interface Config {
   methods?: Method[];
   resultProps?: string;
   timeout?: number;
+  headers?: object;
 }
-
+ 
 export interface ReqOptions extends RequestInit {
   query?: object;
   method?: Method;
